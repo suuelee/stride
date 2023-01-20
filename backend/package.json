@@ -1,0 +1,17 @@
+
+{
+  "name": "stride-backend",
+  "version": "1.0.0",
+  "description": "NodeJS Backend for Stride",
+  "main": "index.js",
+  "repository": "https://github.com/suuelee/stride.git",
+  "license": "MIT",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
