@@ -1,0 +1,60 @@
+// Select the database to use.
+use('strideDB');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against the correct database and collection.
+db.users.drop();
+db.trips.drop();
+db.currentStatus.drop();
+
+// Insert a few documents into the sales collection.
+db.users.insertMany([
+  { _id: 7788782266,
+  email: "ericlu133@gmail.com",
+  password: "stridepw",
+  fName: "Eric",
+  lName: "Lu",
+  isStrider: 0, // 0 for user, 1 for strider
+  defaultAddress: "7480 Sunnybank Avenue" // later we fill in with maps API usable data
+  },
+  { _id: 1234567890,
+  email: "suuelee@outlook.com",
+  password: "stridepw",
+  fName: "Sue",
+  lName: "Lee",
+  isStrider: 1, // 0 for user, 1 for strider
+  // defaultAddress: "1234 ABC St", // not necessary for striders
+  noTripsCompleted: 300, // only for striders
+  hobbies: ['Walking people at night', 'Computer Science'] // only for striders
+  }
+]);
+
+db.trips.insertMany([
+  {
+    _id: 1,
+    striderID: 1234567890,
+    userID: 7788782266,
+    timestamp: ISODate("2019-01-31T10:01:00.000Z"),
+    status: "current"
+  },
+  {
+    _id: 2,
+    striderID: 1234567890,
+    userID: 7788782266,
+    timestamp: ISODate("2020-01-31T20:31:00.000Z"),
+    status: "pending"
+  }
+])
+
+db.currentStatus.insertMany([{
+    striderID: 1234567890,
+    userID: 7788782266,
+    timestamp: ISODate("2020-01-31T20:31:00.000Z"),
+    currentLocation: "foo" //later replace with API parseable location data
+},
+{
+    striderID: 1234567890,
+    userID: 7788782266,
+    timestamp: ISODate("2020-01-31T20:32:00.000Z"),
+    currentLocation: "Canada" //later replace with API parseable location data
+}])
