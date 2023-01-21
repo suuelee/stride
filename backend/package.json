@@ -1,4 +1,3 @@
-
 {
   "name": "stride-backend",
   "version": "1.0.0",
@@ -12,6 +11,7 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongodb": "^4.13.0"
   }
 }
