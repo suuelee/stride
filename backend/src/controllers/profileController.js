@@ -1,5 +1,5 @@
 
-import {Profile} from "../models/profile.js";
+import Profile from "../models/profile.js";
 
 export default class ProfileController {
     saveProfile(req) {
