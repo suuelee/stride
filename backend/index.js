@@ -1,5 +1,7 @@
 import express from 'express'
 import profileRouter from './routes/profileRouter.js'
+import database from './src/config/database.js'
+
 
 const app = express()
 const port = 3000

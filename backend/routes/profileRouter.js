@@ -20,3 +20,5 @@ router.post("/", (req, res) => {
             res.status(404).json(err);
         });
 });
+
+export default router;

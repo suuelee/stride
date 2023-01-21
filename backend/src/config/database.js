@@ -1,7 +1,22 @@
-// const mongoose = require("mongoose");
-//
-// const uri = "mongodb+srv://mongodb:stridepw@stride-cluster.vbr2nwk.mongodb.net/?retryWrites=true&w=majority";
-// mongoose.connect(uri, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// });
+import mongoose from 'mongoose';
+import { config } from "dotenv";
+config();
+
+mongoose.set("strictQuery", false);
+mongoose.connect(
+    process.env.MONGO_URL,
+    {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true,
+    }
+    );
+
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "connection error: "));
+
+db.once("open", function () {
+    console.log("Connected to database");
+  });
+
+export default db;
