@@ -59,6 +59,30 @@ export const acceptStrideRequestApi = async action => {
   }
 };
 
+export const startStrideRequestApi = async action => {
+  try {
+    var data = JSON.stringify({
+      _id: action.payload,
+    });
+    const request = await axios.post(`usertrip/startTrip`, data);
+    return request;
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export const endStrideRequestApi = async action => {
+  try {
+    var data = JSON.stringify({
+      id: action.payload,
+    });
+    const request = await axios.post(`usertrip/end`, data);
+    return request;
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
 export const getWalkerApi = async action => {
   try {
     const walker = await axios.get(`profile/getProfile/${action.payload}`);

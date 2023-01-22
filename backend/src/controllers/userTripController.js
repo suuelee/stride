@@ -68,7 +68,6 @@ export default class UserTripController {
   }
 
   endTrip(req) {
-      console.log(req.body.id);
       return new Promise((resolve, reject) => {
         UserTrip.findOneAndUpdate(({ _id: req.body.id }), {status: "completed"}, {new: true}, function (err, res) {
           if (err) {
@@ -164,6 +163,19 @@ export default class UserTripController {
     })
   }
 
+  startTrip(req) {
+    return new Promise((resolve, reject) => {
+      return UserTrip.findOneAndUpdate({
+        _id: req.body._id
+      }, {
+        status: "walking"
+      }).then(res => {
+        console.log("Successfully found!");
+        resolve(res);
+      })
+    })
+  }
+
 
   saveLocation(req) {
     return new Promise((resolve, reject) => {
@@ -186,24 +198,6 @@ export default class UserTripController {
         resolve(result);
       });
     });
-  }
-
-
-  endTrip(req) {
-    const UserTripModel = new UserTrip();
-
-    const trip = {
-      userId: req.body.userId,
-      tripId: req.body.tripId
-    }
-    UserTripModel.finishTrip(trip, (err, result) => {
-      if (err) {
-        reject({ error: err });
-      }
-      resolve(result);
-    });
-
-
   }
 
   saveStrideLocation(req) {
@@ -299,21 +293,6 @@ export default class UserTripController {
           resolve(res);
         }
       })
-    });
-  }
-
-  endTrip(req) {
-    const UserTripModel = new UserTrip();
-
-    const trip = {
-      userId: req.body.userId,
-      tripId: req.body.tripId,
-    };
-    UserTripModel.finishTrip(trip, (err, result) => {
-      if (err) {
-        reject({ error: err });
-      }
-      resolve(result);
     });
   }
 

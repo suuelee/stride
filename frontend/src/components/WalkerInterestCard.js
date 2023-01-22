@@ -1,11 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 function WalkerInterestCard() {
   const walkerReducer = useSelector(
     state => state.tripReducer.currentWalkerReducer,
   );
+  if (walkerReducer === null) {
+    return null;
+  }
   return (
     <View
       style={{
@@ -20,7 +23,7 @@ function WalkerInterestCard() {
           fontWeight: 'bold',
           fontSize: 12,
         }}>
-        {walkerReducer.fName} loves...
+        {walkerReducer.fName ?? ''} loves...
       </Text>
       <Text
         style={{
@@ -29,7 +32,7 @@ function WalkerInterestCard() {
           alignSelf: 'center',
           marginTop: 10,
         }}>
-        {walkerReducer.hobbies}
+        {walkerReducer.hobbies ?? ''}
       </Text>
     </View>
   );

@@ -27,12 +27,14 @@ function TripDetailView() {
                 }`}
               </Text>
               <Text style={{fontSize: 16, marginTop: 50, marginBottom: 30}}>
-                {currentTrip.status === 'progress'
+                {currentTrip.status === 'progress' ||
+                currentTrip.status === 'walking'
                   ? 'With your Stride walker:'
                   : 'Searching for a Stride walker...'}
               </Text>
             </View>
-            {currentTrip.status === 'progress' && (
+            {(currentTrip.status === 'progress' ||
+              currentTrip.status === 'walking') && (
               <ScrollView
                 contentContainerStyle={{
                   alignItems: 'center',

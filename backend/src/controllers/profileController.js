@@ -15,7 +15,7 @@ var profileSchema = new Schema({
     hobbies: { type: String },
     top: { type: String },
     pants: { type: String },
-    height: { type: Number },
+    height: { type: String },
     hair: { type: String },
     race: { type: String },
     gender: { type: String }
@@ -39,7 +39,11 @@ export default class ProfileController {
                 noTripsCompleted: 0,
                 hobbies: req.body.hobbies,
                 top: req.body.top,
-                pants: req.body.pants
+                pants: req.body.pants,
+                height: req.body.height,
+                hair: req.body.hair,
+                race: req.body.race,
+                gender: req.body.gender
             });
 
             new_profile.save((err, res) => {
@@ -85,7 +89,11 @@ export default class ProfileController {
                     noTripsCompleted: req.body.noTripsCompleted,
                     hobbies: req.body.hobbies,
                     top: req.body.top,
-                    bottom: req.body.bottom
+                    bottom: req.body.bottom,
+                    height: req.body.height,
+                    hair: req.body.hair,
+                    race: req.body.race,
+                    gender: req.body.gender
                 })
             }).then(res => {
                     console.log("Successfully found!");

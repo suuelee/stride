@@ -158,6 +158,23 @@ router.post("/acceptTrip", (req, res) => {
         });
 })
 
+router.post("/startTrip", (req, res) => {
+    if (!req.params) {
+        res.status(400).send({
+            message: "Content can not be empty!",
+        });
+        return;
+    }
+    userTripController.startTrip(req)
+        .then((response) => {
+            res.status(200).json(response);
+        })
+        .catch((err) => {
+            res.status(404).json(err);
+        });
+})
+
+
 router.post("/end", (req, res) => {
     if (!req.params) {
         res.status(400).send({

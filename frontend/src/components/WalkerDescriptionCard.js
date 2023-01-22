@@ -1,7 +1,14 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import {useSelector} from 'react-redux';
 
 function WalkerDescriptionCard() {
+  const walkerReducer = useSelector(
+    state => state.tripReducer.currentWalkerReducer,
+  );
+  if (walkerReducer === null) {
+    return null;
+  }
   return (
     <View style={{width: '90%', height: 200, flexDirection: 'row'}}>
       <View style={{flex: 1, justifyContent: 'space-around'}}>
@@ -13,6 +20,7 @@ function WalkerDescriptionCard() {
             width: 80,
             resizeMode: 'contain',
             alignSelf: 'center',
+            tintColor: walkerReducer.top,
           }}
         />
         <Image
@@ -22,6 +30,7 @@ function WalkerDescriptionCard() {
             width: 80,
             resizeMode: 'contain',
             alignSelf: 'center',
+            tintColor: walkerReducer.pants,
           }}
         />
         <View style={{flex: 1}} />
@@ -56,7 +65,7 @@ function WalkerDescriptionCard() {
               fontWeight: 'bold',
               fontSize: 12,
             }}>
-            5'9"
+            {walkerReducer.height}
           </Text>
         </View>
         <View
@@ -76,7 +85,7 @@ function WalkerDescriptionCard() {
               fontWeight: 'bold',
               fontSize: 12,
             }}>
-            Short Brown Hair
+            {walkerReducer.hair}
           </Text>
         </View>
         <View
@@ -96,7 +105,7 @@ function WalkerDescriptionCard() {
               fontWeight: 'bold',
               fontSize: 12,
             }}>
-            Caucasian
+            {walkerReducer.race}
           </Text>
         </View>
         <View
@@ -116,7 +125,7 @@ function WalkerDescriptionCard() {
               fontWeight: 'bold',
               fontSize: 12,
             }}>
-            Male
+            {walkerReducer.gender}
           </Text>
         </View>
       </View>
