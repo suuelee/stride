@@ -68,15 +68,8 @@ router.get("/stridelocation", (req, res) => {
         });
 })
 
-router.get("/walkRequests", (req, res) => {
-    console.log("arrived");
-    if (!req.params) {
-        res.status(400).send({
-            message: "Content can not be empty!",
-        });
-        return;
-    }
-    userTripController.getAllPendingRequests(req)
+router.get("/walkRequests", (_, res) => {
+    userTripController.getAllPendingRequests()
         .then((response) => {
             res.status(200).json(response);
         })

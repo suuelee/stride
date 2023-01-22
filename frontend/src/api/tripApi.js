@@ -30,10 +30,19 @@ export const postTripApi = async action => {
 };
 
 export const getTripApi = async action => {
-    try {
-      const trip = await axios.get(`usertrip/latest/${action.payload.userId}`);
-      return trip;
-    } catch (err) {
-      return console.error(err);
-    }
-  };
+  try {
+    const trip = await axios.get(`usertrip/latest/${action.payload.userId}`);
+    return trip;
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export const getStrideRequestApi = async () => {
+  try {
+    const request = await axios.get(`usertrip/walkRequests`);
+    return request;
+  } catch (err) {
+    return console.error(err);
+  }
+};

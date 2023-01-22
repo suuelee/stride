@@ -8,6 +8,7 @@ import Profile from './src/screens/Profile';
 import Login from './src/screens/Login';
 import Signup from './src/screens/Signup';
 import Support from './src/screens/Support';
+import WalkList from './src/screens/WalkList';
 
 enableScreens();
 const MainStack = createNativeStackNavigator();
@@ -25,6 +26,7 @@ function App() {
         <MainStack.Screen name="Login" component={Login} />
         <MainStack.Screen name="Signup" component={Signup} />
         <MainStack.Screen name="Support" component={Support} />
+        <MainStack.Screen name="WalkList" component={WalkList} />
       </MainStack.Navigator>
     </NavigationContainer>
   );

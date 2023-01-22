@@ -2,10 +2,12 @@ import React from 'react';
 import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
 
-function Support() {
+function Support({navigation}) {
   return (
     <SafeAreaView>
-        <Text>Support</Text>
+        <Text onPress={() => {
+          navigation.navigate('WalkList');
+        }}>Support</Text>
     </SafeAreaView>
   );
 }
