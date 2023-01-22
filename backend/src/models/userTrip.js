@@ -11,6 +11,13 @@ export default class UserTrip{
 
 
     }
+
+    getLocation(userTrip, result) {
+
+    }
+
+
+    // make get location for user
     getWalkerInfo(userTrip, result){
         /*
         Get the following details for walker info:
