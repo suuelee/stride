@@ -22,42 +22,30 @@ function TripDetailView() {
             {PullTab()}
             <View style={{paddingLeft: '5%', paddingRight: '5%'}}>
               <Text style={{fontWeight: 'bold', fontSize: 18}}>
-                {`Walking to ${currentTrip.dropoffAddress}`}
+                {`Walking to ${
+                  currentTrip.dropoffAddress ?? currentTrip.destination
+                }`}
               </Text>
               <Text style={{fontSize: 16, marginTop: 50, marginBottom: 30}}>
-                With your Stride walker:
+                {currentTrip.status === 'progress' ? "With your Stride walker:" : "Searching for a Stride walker..."}
               </Text>
             </View>
-            <ScrollView
-              contentContainerStyle={{alignItems: 'center', paddingBottom: 30}}>
-              {WalkerInfoCard()}
-              {WalkerDescriptionCard()}
-              {WalkerInterestCard()}
-            </ScrollView>
+            {currentTrip.status === 'progress' && (
+              <ScrollView
+                contentContainerStyle={{
+                  alignItems: 'center',
+                  paddingBottom: 30,
+                }}>
+                {WalkerInfoCard()}
+                {WalkerDescriptionCard()}
+                {WalkerInterestCard()}
+              </ScrollView>
+            )}
           </View>
         );
       }}
     />
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default TripDetailView;

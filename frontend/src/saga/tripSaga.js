@@ -1,6 +1,18 @@
 import {call, delay, put, takeEvery, takeLatest} from 'redux-saga/effects';
-import {GET_TRIP, POST_TRIP, SET_CURRENT_TRIP} from '../actions/tripActions';
-import {getTripApi, postTripApi} from '../api/tripApi';
+import {
+  ACCEPT_STRIDE_REQUEST,
+  GET_STRIDE_REQUEST,
+  GET_TRIP,
+  POST_TRIP,
+  SET_CURRENT_TRIP,
+  SET_STRIDE_REQUEST,
+} from '../actions/tripActions';
+import {
+  acceptStrideRequestApi,
+  getStrideRequestApi,
+  getTripApi,
+  postTripApi,
+} from '../api/tripApi';
 
 function* postTrip(action) {
   yield call(postTripApi, action);
@@ -20,7 +32,22 @@ function* getTrip(action) {
   yield put({type: GET_TRIP, payload: action.payload});
 }
 
+function* getStrideRequest() {
+  const request = yield call(getStrideRequestApi);
+  yield put({
+    type: SET_STRIDE_REQUEST,
+    payload: request.data,
+  });
+}
+
+function* acceptStrideRequest(action) {
+  yield call(acceptStrideRequestApi, action);
+  yield call(getStrideRequest);
+}
+
 export function* tripSaga() {
   yield takeLatest(POST_TRIP, postTrip);
   yield takeEvery(GET_TRIP, getTrip);
+  yield takeLatest(GET_STRIDE_REQUEST, getStrideRequest);
+  yield takeLatest(ACCEPT_STRIDE_REQUEST, acceptStrideRequest);
 }

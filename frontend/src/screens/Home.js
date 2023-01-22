@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, TouchableOpacity, View} from 'react-native';
 import MapView from 'react-native-maps';
 import {useDispatch, useSelector} from 'react-redux';
 import TripDetailView from '../components/TripDetailView';
@@ -29,7 +29,7 @@ function Home({navigation}) {
       />
       {currentTrip === null && <Whereto/>}
       {currentTrip !== null && <TripDetailView/>}
-      <View style={{position: 'absolute', top: 280, right: '5%'}}>
+      <View style={{position: 'absolute', top: currentTrip === null ? 280 : 50, right: '5%'}}>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Profile');
@@ -57,24 +57,5 @@ function Home({navigation}) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default Home;

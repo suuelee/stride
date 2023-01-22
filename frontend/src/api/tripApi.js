@@ -9,11 +9,10 @@ const axios = defaultAxios.create({
 
 export const postTripApi = async action => {
   try {
-    console.log(action);
     var data = JSON.stringify({
       id: uuid(),
-      userId: 1,
-      striderId: 2,
+      userId: "1",
+      striderId: null,
       pickupAddress: action.payload.pickup,
       dropoffAddress: action.payload.destination,
       status: 'pending',
@@ -30,10 +29,32 @@ export const postTripApi = async action => {
 };
 
 export const getTripApi = async action => {
-    try {
-      const trip = await axios.get(`usertrip/latest/${action.payload.userId}`);
-      return trip;
-    } catch (err) {
-      return console.error(err);
-    }
-  };
+  try {
+    const trip = await axios.get(`usertrip/latest/${action.payload.userId}`);
+    return trip;
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export const getStrideRequestApi = async () => {
+  try {
+    const request = await axios.get(`usertrip/walkRequests`);
+    return request;
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export const acceptStrideRequestApi = async action => {
+  try {
+    var data = JSON.stringify({
+      _id: action.payload,
+      striderId: "1234" // TODO: get strider id from redux,
+    });
+    const request = await axios.post(`usertrip/acceptTrip`, data);
+    return request;
+  } catch (err) {
+    return console.error(err);
+  }
+};
