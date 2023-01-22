@@ -273,7 +273,7 @@ export default class UserTripController {
           reject(err);
         } else {
           console.log("resolving this promise !!");
-          resolve(res);
+          resolve(result);
         }
       })
     });
