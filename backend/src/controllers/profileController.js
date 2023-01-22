@@ -9,9 +9,9 @@ var profileSchema = new Schema({
     password: { type: String },
     fName: { type: String },
     lName: { type: String },
-    isStrider: { type: String },
+    isStrider: { type: Number },
     defaultAddress: { type: String },
-    noTripsCompleted: { type: String },
+    noTripsCompleted: { type: Number },
     hobbies: { type: String }
 });
 
@@ -60,21 +60,50 @@ export default class ProfileController {
     }
 
     updateProfile(req) {
-        const doc = Profile.findOne(({ _id: req.body.id }), async function (err, res) {
-            if (err) {
-                console.log("Not found");
-            } else {
-                doc._id = req.body.id;
-                doc.email = req.body.email;
-                doc.password = req.body.password;
-                doc.fName = req.body.fName;
-                doc.lName = req.body.lName;
-                doc.isStrider = req.body.isStrider;
-                doc.defaultAddress = req.body.address;
-                doc.noTripsCompleted = 0;
-                doc.hobbies = req.body.hobbie;
-                await doc.save;
-            }
+        return new Promise((resolve, reject) => {
+            return Profile.findOne({
+                _id: req.body.id
+            }).then(res => {
+                return Profile.findOneAndUpdate({
+                    _id: req.body.id
+                }, {
+                    _id: req.body.id,
+                    email: req.body.email,
+                    password: req.body.password,
+                    fName: req.body.fName,
+                    lName: req.body.lName,
+                    isStrider: req.body.isStrider,
+                    defaultAddress: req.body.address,
+                    noTripsCompleted: req.body.noTripsCompleted,
+                    hobbies: req.body.hobbies,
+                })
+            }).then(res => {
+
+                    console.log("Successfully found!");
+                    resolve(res);
+
+            })
         })
+
+
+
+        function signup(email) {
+            return usersSchema.findOne({
+                email: email
+            }).then(res => {
+                if (res) throw 'The user already exists'
+                var new_user = new usersSchema({ email: email })
+                return new_user.save()
+            }).then(res => {
+                var result = parse_result(res)
+                return codesSchema.findOneAndUpdate({
+                    used: false,
+                    user_id: true
+                }, {
+                    used: true,
+                    user_id: mongoose.Types.ObjectId(result._id)
+                })
+            })
+        }
     }
 }

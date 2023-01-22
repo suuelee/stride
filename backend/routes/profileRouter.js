@@ -46,6 +46,13 @@ router.get("/getProfile", (req, res) => {
 router.post("/updateProfile", (req, res) => {
     profileController
         .updateProfile(req)
+        .then((response) => {
+            res.status(200).json(response);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(404).json(err);
+        });
 
 })
 
