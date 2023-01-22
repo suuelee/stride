@@ -1,5 +1,10 @@
 import {combineReducers} from 'redux';
-import {SET_CURRENT_TRIP, SET_LOADING, SET_STRIDE_REQUEST} from '../actions/tripActions';
+import {
+  SET_CURRENT_TRIP,
+  SET_CURRENT_WALKER,
+  SET_LOADING,
+  SET_STRIDE_REQUEST,
+} from '../actions/tripActions';
 
 const isLoadingDefault = false;
 const defaultTrip = null;
@@ -22,6 +27,15 @@ const currentTripReducer = (state = defaultTrip, action) => {
   }
 };
 
+const currentWalkerReducer = (state = defaultTrip, action) => {
+  switch (action.type) {
+    case SET_CURRENT_WALKER:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const requestListReducer = (state = [], action) => {
   switch (action.type) {
     case SET_STRIDE_REQUEST:
@@ -35,4 +49,5 @@ export default combineReducers({
   loadingReducer,
   currentTripReducer,
   requestListReducer,
+  currentWalkerReducer,
 });

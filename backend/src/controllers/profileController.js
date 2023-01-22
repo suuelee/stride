@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 var profileSchema = new Schema({
-    _id: { type: Number },
+    _id: { type: String },
     email: { type: String },
     password: { type: String },
     fName: { type: String },
@@ -52,7 +52,7 @@ export default class ProfileController {
 
     getProfile(req) {
         return new Promise((resolve, reject) => {
-            Profile.findOne(({ _id: req.body.id }), function (err, res) {
+            Profile.findOne(({ _id: req.params.userId }), function (err, res) {
                 if (err) {
                     reject(err);
                 } else {

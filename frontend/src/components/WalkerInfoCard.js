@@ -1,7 +1,12 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
+import { useSelector } from 'react-redux';
 
 function WalkerInfoCard() {
+  const walkerReducer = useSelector(
+    state => state.tripReducer.currentWalkerReducer,
+  );
+
   return (
     <View
       style={{
@@ -62,7 +67,7 @@ function WalkerInfoCard() {
             fontSize: 18,
             alignSelf: 'center',
           }}>
-          Mark Diamond
+          {`${walkerReducer.fName} ${walkerReducer.lName}`}
         </Text>
       </View>
       <View
@@ -81,7 +86,7 @@ function WalkerInfoCard() {
               fontSize: 32,
               alignSelf: 'center',
             }}>
-            389
+            {walkerReducer.noTripsCompleted}
           </Text>
         </View>
         <View style={{flex: 1, flexDirection: 'column'}}>
@@ -113,7 +118,7 @@ function WalkerInfoCard() {
             alignSelf: 'center',
             color: '#008224',
           }}>
-          +2 Trips Tonight
+          +1 Trips Tonight
         </Text>
       </View>
     </View>

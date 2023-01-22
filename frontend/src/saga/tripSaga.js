@@ -1,16 +1,19 @@
 import {call, delay, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import {
   ACCEPT_STRIDE_REQUEST,
+  GET_CURRENT_WALKER,
   GET_STRIDE_REQUEST,
   GET_TRIP,
   POST_TRIP,
   SET_CURRENT_TRIP,
+  SET_CURRENT_WALKER,
   SET_STRIDE_REQUEST,
 } from '../actions/tripActions';
 import {
   acceptStrideRequestApi,
   getStrideRequestApi,
   getTripApi,
+  getWalkerApi,
   postTripApi,
 } from '../api/tripApi';
 
@@ -28,7 +31,16 @@ function* getTrip(action) {
     type: SET_CURRENT_TRIP,
     payload: currentTrip.data.status === 'completed' ? null : currentTrip.data,
   });
-  yield delay(10000);
+  if (
+    currentTrip.data.status === 'progress' ||
+    currentTrip.data.status === 'walking'
+  ) {
+    yield put({
+      type: GET_CURRENT_WALKER,
+      payload: currentTrip.data.striderId,
+    });
+  }
+  yield delay(60000);
   yield put({type: GET_TRIP, payload: action.payload});
 }
 
@@ -45,9 +57,18 @@ function* acceptStrideRequest(action) {
   yield call(getStrideRequest);
 }
 
+function* getCurrentWalker(action) {
+  const currentWalker = yield call(getWalkerApi, action);
+  yield put({
+    type: SET_CURRENT_WALKER,
+    payload: currentWalker.data,
+  });
+}
+
 export function* tripSaga() {
   yield takeLatest(POST_TRIP, postTrip);
   yield takeEvery(GET_TRIP, getTrip);
   yield takeLatest(GET_STRIDE_REQUEST, getStrideRequest);
   yield takeLatest(ACCEPT_STRIDE_REQUEST, acceptStrideRequest);
+  yield takeLatest(GET_CURRENT_WALKER, getCurrentWalker);
 }

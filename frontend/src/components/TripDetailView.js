@@ -27,7 +27,9 @@ function TripDetailView() {
                 }`}
               </Text>
               <Text style={{fontSize: 16, marginTop: 50, marginBottom: 30}}>
-                {currentTrip.status === 'progress' ? "With your Stride walker:" : "Searching for a Stride walker..."}
+                {currentTrip.status === 'progress'
+                  ? 'With your Stride walker:'
+                  : 'Searching for a Stride walker...'}
               </Text>
             </View>
             {currentTrip.status === 'progress' && (
@@ -36,9 +38,9 @@ function TripDetailView() {
                   alignItems: 'center',
                   paddingBottom: 30,
                 }}>
-                {WalkerInfoCard()}
-                {WalkerDescriptionCard()}
-                {WalkerInterestCard()}
+                <WalkerInfoCard />
+                <WalkerDescriptionCard />
+                <WalkerInterestCard />
               </ScrollView>
             )}
           </View>

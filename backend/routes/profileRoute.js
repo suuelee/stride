@@ -23,10 +23,9 @@ router.post("/saveProfile", (req, res) => {
         });
 });
 
-router.get("/getProfile", (req, res) => {
-    console.log("getting the profile");
+router.get("/getProfile/:userId", (req, res) => {
     // console.log(req);
-    if (!req.body) {
+    if (!req) {
         res.status(400).send({
             message: "Content can not be empty!",
         });
