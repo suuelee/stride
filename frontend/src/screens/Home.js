@@ -40,9 +40,7 @@ function Home({navigation}) {
           />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('Support');
-          }}>
+        >
           <Image
             source={require('../assets/Info.png')}
             style={{
