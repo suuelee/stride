@@ -1,4 +1,4 @@
-export default class UserTrip{
+export default class UserTrip {
 
     insertLocation(userTrip, result) {
         /* userTrip Objects below
@@ -18,7 +18,7 @@ export default class UserTrip{
 
 
     // make get location for user
-    getWalkerInfo(userTrip, result){
+    getWalkerInfo(userTrip, result) {
         /*
         Get the following details for walker info:
         - Full Name
@@ -56,13 +56,13 @@ export default class UserTrip{
     }
 
     finishTrip(trip, result) {
-/*
-Trip Object
-  const trip = {
-                userId: req.body.userId,
-                tripId: req.body.tripId
-            }
- */
+        /*
+        Trip Object
+          const trip = {
+                        userId: req.body.userId,
+                        tripId: req.body.tripId
+                    }
+         */
 
     }
 
@@ -88,10 +88,11 @@ Trip Object
 
          */
     }
-    
+
     getWalkRequests(result) {
         /*
-        Get all pending walk requests
+        Get all pending walk requests of WALKERS
          */
+
     }
 }

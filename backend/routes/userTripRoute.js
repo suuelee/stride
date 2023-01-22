@@ -69,6 +69,7 @@ router.get("/stridelocation", (req, res) => {
 })
 
 router.get("/walkRequests", (req, res) => {
+    console.log("arrived");
     if (!req.params) {
         res.status(400).send({
             message: "Content can not be empty!",
@@ -99,7 +100,7 @@ router.post("/stridelocation", (req, res) => {
         });
 })
 router.get("/walkerInfo", (req, res) => {
-    if (!req.params) {
+    if (!req) {
         res.status(400).send({
             message: "Content can not be empty!",
         });
@@ -107,15 +108,17 @@ router.get("/walkerInfo", (req, res) => {
     }
     userTripController.loadWalkerInfo(req)
         .then((response) => {
+            console.log("Result");
             res.status(200).json(response);
         })
         .catch((err) => {
+            console.log("Error");
             res.status(404).json(err);
         });
 })
 
 router.get("/walkerOutfit", (req, res) => {
-    if (!req.params) {
+    if (!req) {
         res.status(400).send({
             message: "Content can not be empty!",
         });
