@@ -105,16 +105,16 @@ function WalkerInfoCard() {
         <View style={{flex: 1}} />
       </View>
       <View style={{flex: 1, width: '100%'}}>
-      <Text
-            style={{
-              flex: 1,
-              fontWeight: 'bold',
-              fontSize: 12,
-              alignSelf: 'center',
-              color: '#008224'
-            }}>
-            +2 Trips Tonight
-          </Text>
+        <Text
+          style={{
+            flex: 1,
+            fontWeight: 'bold',
+            fontSize: 12,
+            alignSelf: 'center',
+            color: '#008224',
+          }}>
+          +2 Trips Tonight
+        </Text>
       </View>
     </View>
   );

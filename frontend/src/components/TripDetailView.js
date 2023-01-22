@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import BottomSheet from 'reanimated-bottom-sheet';
 import PullTab from './PullTab';
 import WalkerDescriptionCard from './WalkerDescriptionCard';
@@ -20,11 +21,11 @@ function TripDetailView() {
               </Text>
               <Text style={{fontSize: 16, marginTop: 50, marginBottom: 30}}>With your Stride walker:</Text>
             </View>
-            <View style={{alignItems: 'center'}}>
+            <ScrollView contentContainerStyle={{alignItems: 'center', paddingBottom: 30}}>
               {WalkerInfoCard()}
               {WalkerDescriptionCard()}
               {WalkerInterestCard()}
-            </View>
+            </ScrollView>
           </View>
         );
       }}
