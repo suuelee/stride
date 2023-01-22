@@ -19,6 +19,7 @@ router.post("/", (req, res) => {
             res.status(200).json(response);
         })
         .catch((err) => {
+            console.log(err);
             res.status(404).json(err);
         });
 });
