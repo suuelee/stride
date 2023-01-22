@@ -14,7 +14,11 @@ var profileSchema = new Schema({
     noTripsCompleted: { type: Number },
     hobbies: { type: String },
     top: { type: String },
-    pants: { type: String }
+    pants: { type: String },
+    height: { type: Number },
+    hair: { type: String },
+    race: { type: String },
+    gender: { type: String }
 
 });
 
