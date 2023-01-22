@@ -5,7 +5,9 @@ const router = Router();
 const profileController = new ProfileController();
 
 router.post("/", (req, res) => {
-    if (!req.params) {
+    console.log("receiving");
+    // console.log(req);
+    if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!",
         });
