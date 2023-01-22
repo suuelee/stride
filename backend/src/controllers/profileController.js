@@ -29,18 +29,6 @@ export default class ProfileController {
                 hobbies: req.body.hobbies
             });
 
-            // const profile = new Profile({
-            //     _id: req.query.id, // phone number
-            //     email: req.query.email,
-            //     password:  req.query.password,
-            //     fName: req.query.fName,
-            //     lName:  req.query.lName,
-            //     isStrider: req.query.isStrider,
-            //     defaultAddress: req.query.address,
-            //     noTripsCompleted: 0,
-            //     hobbies: req.query.hobbies
-            // });
-
             profile.save((err, res) => {
                 if (err) {
                     console.log(err);
