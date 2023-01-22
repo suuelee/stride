@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 import {
   Image,
   SafeAreaView,
@@ -13,6 +15,8 @@ import {
 function Login() {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const [stars, setStars] = useState('');
+  const navigation = useNavigation();
   return (
   
     <SafeAreaView>
@@ -61,10 +65,6 @@ function Login() {
               }}
               value={user}
             />
-            {/* <Image
-            source={require('../assets/user-black-outline.png')}
-            style={{height: 40, width: '95%', resizeMode: 'contain', marginTop: 70}}
-          /> */}
 
         </View>
 
@@ -89,9 +89,10 @@ function Login() {
                 borderRadius: 10,
               backgroundColor: '#E3E5DA',}}
               onChangeText={text => {
-                setUser(text);
+                setStars(stars + '*')
+                setPassword(text);
               }}
-              value={user}
+              value={stars}
             />
         </View>
 
@@ -113,7 +114,7 @@ function Login() {
           alignItems: 'center',
         }}
         onPress={() => {
-          console.log(`Creating request from ${pickup} to ${destination}`);
+          navigation.navigate('Home');
         }}>
         <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}>Sign In</Text>
       </TouchableOpacity>
@@ -129,6 +130,8 @@ function Login() {
       <Text style={{
         textDecorationLine: 'underline',
         fontSize: 10
+      }} onPress={() => {
+        navigation.navigate('Signup');
       }}>
         Sign up here.
       </Text>

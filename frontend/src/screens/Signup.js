@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 
@@ -53,6 +55,8 @@ function Login() {
   const [phone, setPhone] = useState('');
   const [name, setName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [stars, setStars] = useState('');
+  const navigation = useNavigation();
   return (
   
     <SafeAreaView>
@@ -76,7 +80,7 @@ function Login() {
         <View
         style={{
           display: 'flex',
-          marginTop: 190,
+          marginTop: 160,
           marginBottom: 20,
           alignItems: 'center',
           justifyContent: 'center',
@@ -162,8 +166,9 @@ function Login() {
               backgroundColor: '#E3E5DA',}}
               onChangeText={text => {
                 setPassword(text);
+                setStars(stars + '*')
               }}
-              value={password}
+              value={stars}
             />
   
 
@@ -186,7 +191,7 @@ function Login() {
           alignItems: 'center',
         }}
         onPress={() => {
-          console.log(`Creating request from ${pickup} to ${destination}`);
+          navigation.navigate('Home');
         }}>
         <Text style={{color: 'white', fontWeight: 'bold', fontSize: 20}}>Register</Text>
       </TouchableOpacity>
