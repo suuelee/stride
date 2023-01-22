@@ -12,7 +12,10 @@ var profileSchema = new Schema({
     isStrider: { type: Number },
     defaultAddress: { type: String },
     noTripsCompleted: { type: Number },
-    hobbies: { type: String }
+    hobbies: { type: String },
+    top: { type: String },
+    pants: { type: String }
+
 });
 
 const Profile = mongoose.model('Profile', profileSchema);
@@ -31,7 +34,9 @@ export default class ProfileController {
                 isStrider: req.body.isStrider,
                 defaultAddress: req.body.address,
                 noTripsCompleted: 0,
-                hobbies: req.body.hobbies
+                hobbies: req.body.hobbies,
+                top: req.body.top,
+                pants: req.body.pants
             });
 
             new_profile.save((err, res) => {
@@ -76,34 +81,13 @@ export default class ProfileController {
                     defaultAddress: req.body.address,
                     noTripsCompleted: req.body.noTripsCompleted,
                     hobbies: req.body.hobbies,
+                    top: req.body.top,
+                    bottom: req.body.bottom
                 })
             }).then(res => {
-
                     console.log("Successfully found!");
                     resolve(res);
-
             })
         })
-
-
-
-        function signup(email) {
-            return usersSchema.findOne({
-                email: email
-            }).then(res => {
-                if (res) throw 'The user already exists'
-                var new_user = new usersSchema({ email: email })
-                return new_user.save()
-            }).then(res => {
-                var result = parse_result(res)
-                return codesSchema.findOneAndUpdate({
-                    used: false,
-                    user_id: true
-                }, {
-                    used: true,
-                    user_id: mongoose.Types.ObjectId(result._id)
-                })
-            })
-        }
     }
 }
