@@ -1,6 +1,6 @@
 ## Stride - nwHacks 2023
 
-![Demo](./Demo.mp4)
+![Demo](./Demo.gif)
 
 ## Inspiration
 ???
