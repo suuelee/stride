@@ -1,23 +1,13 @@
-import React, {useState} from 'react';
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { Navbar } from 'react-native-navbar'
-import { color } from 'react-native-reanimated';
+import React from 'react';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
+import {useSelector} from 'react-redux';
 
 
 function Profile() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [email, setEmail] = useState('');
-
+  const walkerReducer = useSelector(
+    state => state.tripReducer.currentWalkerReducer,
+  );
+  
   return (
     <SafeAreaView>
       <View>
