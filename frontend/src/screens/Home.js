@@ -101,7 +101,9 @@ function Home({navigation}) {
           />
         </TouchableOpacity>
         <TouchableOpacity
-        >
+          onPress={() => {
+            navigation.navigate('WalkList');
+          }}>
           <Image
             source={require('../assets/Info.png')}
             style={{
