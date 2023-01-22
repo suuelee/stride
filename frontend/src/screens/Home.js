@@ -1,9 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import MapView from 'react-native-maps';
+import TripDetailView from '../components/TripDetailView';
 import Whereto from '../components/Whereto';
 
-function Home() {
+function Home({navigation}) {
   return (
     <View>
       <MapView
@@ -16,7 +17,33 @@ function Home() {
           longitudeDelta: 0.0421,
         }}
       />
-    {Whereto()}
+      {Whereto()}
+      {TripDetailView()}
+      <View style={{position: 'absolute', top: 280, right: '5%'}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Profile');
+          }}>
+          <Image
+            source={require('../assets/SampleProfile.png')}
+            style={{height: 50, width: 50, resizeMode: 'contain'}}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Support');
+          }}>
+          <Image
+            source={require('../assets/Info.png')}
+            style={{
+              height: 50,
+              width: 50,
+              resizeMode: 'contain',
+              marginTop: 20,
+            }}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }

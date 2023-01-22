@@ -1,11 +1,19 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-function WalkerInterestCard() {
+function PullTab() {
   return (
-    <View style={{ width: '90%', height: 100, borderRadius: 30, backgroundColor: "#F1F2ED"}}>
-      <Text>Walker Info</Text>
-    </View>
+    <View
+      style={{
+        width: '25%',
+        backgroundColor: '#E3E5DA',
+        height: 5,
+        borderRadius: 20,
+        alignSelf: 'center',
+        marginTop: 15,
+        marginBottom: 15,
+      }}
+    />
   );
 }
 
@@ -28,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WalkerInterestCard;
+export default PullTab;
