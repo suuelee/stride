@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 var tripSchema = new Schema({
-  _id: { type:  Number },
-  userId: { type: Number },
-  striderId: { type: Number },
+  _id: { type:  String },
+  userId: { type: String },
+  striderId: { type: String },
   pickupAddress: { type: String },
   dropoffAddress: { type: String },
   status: { type: String },
@@ -155,7 +155,8 @@ export default class UserTripController {
       return UserTrip.findOneAndUpdate({
         _id: req.body._id
       }, {
-        status: "progress"
+        status: "progress",
+        striderId: req.body.striderId
       }).then(res => {
         console.log("Successfully found!");
         resolve(res);

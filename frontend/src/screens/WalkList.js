@@ -9,7 +9,10 @@ import {
 } from 'react-native';
 import MapView from 'react-native-maps';
 import {useDispatch, useSelector} from 'react-redux';
-import {GET_STRIDE_REQUEST} from '../actions/tripActions';
+import {
+  ACCEPT_STRIDE_REQUEST,
+  GET_STRIDE_REQUEST,
+} from '../actions/tripActions';
 
 function WalkList() {
   const dispatch = useDispatch();
@@ -104,7 +107,10 @@ function WalkList() {
                     alignItems: 'center',
                   }}
                   onPress={() => {
-                    console.log('accept');
+                    dispatch({
+                      type: ACCEPT_STRIDE_REQUEST,
+                      payload: request.item._id,
+                    });
                   }}>
                   <Text style={{color: 'white', fontWeight: 'bold'}}>
                     Accept
