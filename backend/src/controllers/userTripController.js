@@ -1,15 +1,60 @@
 
 import UserTrip from "../models/userTrip.js"
 
+import mongoose from 'mongoose';
+import {Timestamp} from "mongodb";
+const { Schema } = mongoose;
+
+var tripSchema =new Schema({
+    _id: {type: String},
+    email: {type: String},
+    password: {type: String},
+    fName: {type: String},
+    lName: {type: String},
+    isStrider: {type: String},
+    defaultAddress: {type: String},
+    noTripsCompleted: {type: String},
+    hobbies: {type: String},
+    userId: {type: Number},
+    striderId: {type: Number},
+    pickupAddress: {type: String},
+    dropoffAddress: {type: String},
+    status: {type: String},
+    createdTime:{type: Timestamp},
+    pickupTime: {type: Timestamp},
+    dropoffTime: {type: Timestamp}
+});
+
 export default class UserTripController {
+    loadLocation(req) {
+        const UserTripModel = new UserTrip();
+
+        const userTrip = {
+                userId: req.body.userId,
+            };
+            UserTripModel.getLocation(userTrip, (err, result) => {
+                if (err) {
+                    reject({ error: err });
+                }
+                resolve(result);
+            });
+        }
+
+
+
         saveLocation(req) {
         return new Promise((resolve, reject) => {
             const UserTripModel = new UserTrip();
 
             const userTrip = {
-                userId: req.body.id,
+                userId: req.body.userId,
+                striderId: req.body.striderId,
                 pickupAddress: req.body.pickupAddress,
-                dropoffAddress: req.body.dropoffAddress
+                dropoffAddress: req.body.dropoffAddress,
+                status: req.body.status,
+                createdTime: req.body.createdTime,
+                pickupTime: req.body.pickupTime,
+                dropoffTime: req.body.dropoffTime
             };
 
             UserTripModel.insertLocation(userTrip, (err, result) => {
