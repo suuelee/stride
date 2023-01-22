@@ -82,6 +82,7 @@ function Login() {
           display: 'flex',
           marginTop: 160,
           marginBottom: 20,
+          marginLeft: 10,
           alignItems: 'center',
           justifyContent: 'center',
           width: '95%',
@@ -178,6 +179,7 @@ function Login() {
           marginTop: 150,
           alignItems: 'center',
           justifyContent: 'center',
+          marginLeft: 10,
           width: '95%',
           height: 55,
         }}>
@@ -187,6 +189,7 @@ function Login() {
           width: '50%',
           height: 40,
           borderRadius: 40,
+          marginLeft: 10,
           justifyContent: 'center',
           alignItems: 'center',
         }}
