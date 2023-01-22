@@ -2,6 +2,7 @@ import {combineReducers} from 'redux';
 import {
   SET_CURRENT_TRIP,
   SET_CURRENT_WALKER,
+  SET_LIVE_LOCATION,
   SET_LOADING,
   SET_STRIDE_REQUEST,
 } from '../actions/tripActions';
@@ -45,9 +46,19 @@ const requestListReducer = (state = [], action) => {
   }
 };
 
+const walkerLiveLocationReducer = (state = null, action) => {
+  switch (action.type) {
+    case SET_LIVE_LOCATION:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   loadingReducer,
   currentTripReducer,
   requestListReducer,
   currentWalkerReducer,
+  walkerLiveLocationReducer,
 });

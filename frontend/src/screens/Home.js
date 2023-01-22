@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import {useDispatch, useSelector} from 'react-redux';
 import TripDetailView from '../components/TripDetailView';
 import Whereto from '../components/Whereto';
 import Geolocation from '@react-native-community/geolocation';
+import {GET_TRIP, SEND_LIVE_LOCATION} from '../actions/tripActions';
+import {v4 as uuid} from 'uuid';
 
 function Home({navigation}) {
   const dispatch = useDispatch();
@@ -13,8 +15,11 @@ function Home({navigation}) {
   );
   const [coord, setCoord] = useState([]);
 
+  // CONFIGURE - CHANGE USER
+  const myUserId = 2;
+
   useEffect(() => {
-    dispatch({type: 'GET_TRIP', payload: {userId: 1}});
+    dispatch({type: GET_TRIP, payload: {userId: myUserId}});
   }, [dispatch]);
 
   useEffect(() => {
@@ -23,6 +28,19 @@ function Home({navigation}) {
         const lat = info.coords.latitude;
         const long = info.coords.longitude;
         setCoord([lat, long]);
+        if (myUserId === 2) {
+          dispatch({
+            type: SEND_LIVE_LOCATION,
+            payload: {
+              _id: uuid(),
+              userID: myUserId,
+              striderID: myUserId,
+              timestamp: new Date(),
+              latitude: lat,
+              longitude: long,
+            },
+          });
+        }
       },
       err => {
         console.log('Enable Location!');
@@ -50,14 +68,16 @@ function Home({navigation}) {
           heading: 0,
           altitude: 1000,
           zoom: 11,
-        }}
-      >
+        }}>
         {currentTrip !== null && (
-        <Marker
-                    key={'to'}
-                    coordinate={{latitude: currentTrip.dropoffCoord[1], longitude: currentTrip.dropoffCoord[0]}}
-                  />)
-        }
+          <Marker
+            key={'to'}
+            coordinate={{
+              latitude: currentTrip.dropoffCoord[1],
+              longitude: currentTrip.dropoffCoord[0],
+            }}
+          />
+        )}
       </MapView>
       {currentTrip === null && <Whereto />}
       {currentTrip !== null && <TripDetailView />}

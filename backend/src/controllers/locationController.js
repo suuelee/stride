@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 var locationSchema = new Schema({
-    _id: { type: Number },
-    userID: { type: Number },
-    striderID: { type: Number },
+    _id: { type: String },
+    userID: { type: String },
+    striderID: { type: String },
     timestamp: { type: Date },
     latitude: { type: Number },
     longitude: { type: Number }

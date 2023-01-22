@@ -3,14 +3,15 @@ import 'react-native-get-random-values';
 import {v4 as uuid} from 'uuid';
 
 const axios = defaultAxios.create({
-  baseURL: 'http://localhost:3000/',
+  //   baseURL: 'http://localhost:3000/',
+  baseURL: 'http://ec2-35-89-191-240.us-west-2.compute.amazonaws.com:3000/',
   headers: {'Content-Type': 'application/json'},
 });
 
 const locationAxios = defaultAxios.create({
-    baseURL: 'https://api.geoapify.com/v1/geocode/autocomplete',
-    headers: {'Content-Type': 'application/json'},
-    });
+  baseURL: 'https://api.geoapify.com/v1/geocode/autocomplete',
+  headers: {'Content-Type': 'application/json'},
+});
 
 export const postTripApi = async action => {
   try {
@@ -89,18 +90,49 @@ export const endStrideRequestApi = async action => {
 };
 
 export const getCoordinatesApi = async action => {
-    try {
-      const request = await locationAxios.get(`?text=${action}&apiKey=04093c26d8844a39ba4feab0e103e7bb`);
-      return request.data.features[0].geometry.coordinates;
-    } catch (err) {
-      return console.error(err);
-    }
-  };
+  try {
+    const request = await locationAxios.get(
+      `?text=${action}&apiKey=04093c26d8844a39ba4feab0e103e7bb`,
+    );
+    return request.data.features[0].geometry.coordinates;
+  } catch (err) {
+    return console.error(err);
+  }
+};
 
 export const getWalkerApi = async action => {
   try {
     const walker = await axios.get(`profile/getProfile/${action.payload}`);
     return walker;
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export const sendLiveLocationApi = async action => {
+  try {
+    var data = JSON.stringify({
+      _id: action.payload._id,
+      userID: action.payload.userID,
+      striderID: action.payload.striderID,
+      timestamp: action.payload.timestamp,
+      latitude: action.payload.latitude,
+      longitude: action.payload.longitude,
+    });
+    const request = await axios.post(`location/addLocation`, data);
+    return request;
+  } catch (err) {
+    return console.error(err);
+  }
+};
+
+export const getLiveLocationApi = async action => {
+  try {
+    var data = JSON.stringify({
+      _id: action.payload.id,
+    });
+    const request = await axios.get(`location/getLocation`, data);
+    return request;
   } catch (err) {
     return console.error(err);
   }

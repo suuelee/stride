@@ -4,11 +4,14 @@ import {
   END_STRIDE_REQUEST,
   GET_COORDINATES,
   GET_CURRENT_WALKER,
+  GET_LIVE_LOCATION,
   GET_STRIDE_REQUEST,
   GET_TRIP,
   POST_TRIP,
+  SEND_LIVE_LOCATION,
   SET_CURRENT_TRIP,
   SET_CURRENT_WALKER,
+  SET_LIVE_LOCATION,
   SET_STRIDE_REQUEST,
   START_STRIDE_REQUEST,
 } from '../actions/tripActions';
@@ -16,10 +19,12 @@ import {
   acceptStrideRequestApi,
   endStrideRequestApi,
   getCoordinatesApi,
+  getLiveLocationApi,
   getStrideRequestApi,
   getTripApi,
   getWalkerApi,
   postTripApi,
+  sendLiveLocationApi,
   startStrideRequestApi,
 } from '../api/tripApi';
 
@@ -100,6 +105,19 @@ function* getCoordinates(action) {
   yield call(getCoordinatesApi, action);
 }
 
+function* sendLiveLocation(action) {
+  yield call(sendLiveLocationApi, action);
+  yield delay(30000);
+}
+
+function* getLiveLocation(action) {
+  const location = yield call(getLiveLocationApi, action);
+  yield put({
+    type: SET_LIVE_LOCATION,
+    payload: location.data,
+  });
+}
+
 export function* tripSaga() {
   yield takeLatest(POST_TRIP, postTrip);
   yield takeEvery(GET_TRIP, getTrip);
@@ -109,4 +127,6 @@ export function* tripSaga() {
   yield takeLatest(START_STRIDE_REQUEST, startStrideRequest);
   yield takeLatest(END_STRIDE_REQUEST, endStrideRequest);
   yield takeLatest(GET_COORDINATES, getCoordinates);
+  yield takeLatest(SEND_LIVE_LOCATION, sendLiveLocation);
+  yield takeLatest(GET_LIVE_LOCATION, getLiveLocation);
 }
