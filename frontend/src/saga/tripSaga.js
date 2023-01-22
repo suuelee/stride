@@ -1,7 +1,8 @@
-import {call, delay, put, takeEvery, takeLatest} from 'redux-saga/effects';
+import {all, call, delay, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import {
   ACCEPT_STRIDE_REQUEST,
   END_STRIDE_REQUEST,
+  GET_COORDINATES,
   GET_CURRENT_WALKER,
   GET_STRIDE_REQUEST,
   GET_TRIP,
@@ -14,6 +15,7 @@ import {
 import {
   acceptStrideRequestApi,
   endStrideRequestApi,
+  getCoordinatesApi,
   getStrideRequestApi,
   getTripApi,
   getWalkerApi,
@@ -31,9 +33,16 @@ function* postTrip(action) {
 
 function* getTrip(action) {
   const currentTrip = yield call(getTripApi, action);
+  const location = yield call(
+    getCoordinatesApi,
+    currentTrip.data.dropoffAddress,
+  );
   yield put({
     type: SET_CURRENT_TRIP,
-    payload: currentTrip.data.status === 'completed' ? null : currentTrip.data,
+    payload:
+      currentTrip.data.status === 'completed'
+        ? null
+        : {...currentTrip.data, dropoffCoord: location},
   });
   if (
     currentTrip.data.status === 'progress' ||
@@ -50,9 +59,17 @@ function* getTrip(action) {
 
 function* getStrideRequest() {
   const request = yield call(getStrideRequestApi);
+  const coordList = yield all(
+    request.data.map(option => {
+      return call(getCoordinatesApi, option.dropoffAddress);
+    }),
+  );
+  const finalList = request.data.map((option, index) => {
+    return {...option, dropoffCoord: coordList[index]};
+  });
   yield put({
     type: SET_STRIDE_REQUEST,
-    payload: request.data,
+    payload: finalList,
   });
 }
 
@@ -79,6 +96,10 @@ function* getCurrentWalker(action) {
   });
 }
 
+function* getCoordinates(action) {
+  yield call(getCoordinatesApi, action);
+}
+
 export function* tripSaga() {
   yield takeLatest(POST_TRIP, postTrip);
   yield takeEvery(GET_TRIP, getTrip);
@@ -87,4 +108,5 @@ export function* tripSaga() {
   yield takeLatest(GET_CURRENT_WALKER, getCurrentWalker);
   yield takeLatest(START_STRIDE_REQUEST, startStrideRequest);
   yield takeLatest(END_STRIDE_REQUEST, endStrideRequest);
+  yield takeLatest(GET_COORDINATES, getCoordinates);
 }

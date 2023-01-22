@@ -7,6 +7,11 @@ const axios = defaultAxios.create({
   headers: {'Content-Type': 'application/json'},
 });
 
+const locationAxios = defaultAxios.create({
+    baseURL: 'https://api.geoapify.com/v1/geocode/autocomplete',
+    headers: {'Content-Type': 'application/json'},
+    });
+
 export const postTripApi = async action => {
   try {
     var data = JSON.stringify({
@@ -82,6 +87,15 @@ export const endStrideRequestApi = async action => {
     return console.error(err);
   }
 };
+
+export const getCoordinatesApi = async action => {
+    try {
+      const request = await locationAxios.get(`?text=${action}&apiKey=04093c26d8844a39ba4feab0e103e7bb`);
+      return request.data.features[0].geometry.coordinates;
+    } catch (err) {
+      return console.error(err);
+    }
+  };
 
 export const getWalkerApi = async action => {
   try {

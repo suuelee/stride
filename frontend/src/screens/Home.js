@@ -1,35 +1,72 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import {useDispatch, useSelector} from 'react-redux';
 import TripDetailView from '../components/TripDetailView';
 import Whereto from '../components/Whereto';
+import Geolocation from '@react-native-community/geolocation';
 
 function Home({navigation}) {
   const dispatch = useDispatch();
   const currentTrip = useSelector(
     state => state.tripReducer.currentTripReducer,
   );
+  const [coord, setCoord] = useState([]);
 
   useEffect(() => {
     dispatch({type: 'GET_TRIP', payload: {userId: 1}});
   }, [dispatch]);
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      info => {
+        const lat = info.coords.latitude;
+        const long = info.coords.longitude;
+        setCoord([lat, long]);
+      },
+      err => {
+        console.log('Enable Location!');
+        console.log(err);
+      },
+    );
+  }, []);
+
+  if (coord.length === 0) {
+    return null;
+  }
 
   return (
     <View>
       <MapView
         style={{width: '100%', height: '100%'}}
         provider="google"
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
+        showsUserLocation
+        initialCamera={{
+          center: {
+            latitude: '49.26038',
+            longitude: '-123.11336',
+          },
+          pitch: 0,
+          heading: 0,
+          altitude: 1000,
+          zoom: 11,
         }}
-      />
-      {currentTrip === null && <Whereto/>}
-      {currentTrip !== null && <TripDetailView/>}
-      <View style={{position: 'absolute', top: currentTrip === null ? 280 : 50, right: '5%'}}>
+      >
+        {currentTrip !== null && (
+        <Marker
+                    key={'to'}
+                    coordinate={{latitude: currentTrip.dropoffCoord[1], longitude: currentTrip.dropoffCoord[0]}}
+                  />)
+        }
+      </MapView>
+      {currentTrip === null && <Whereto />}
+      {currentTrip !== null && <TripDetailView />}
+      <View
+        style={{
+          position: 'absolute',
+          top: currentTrip === null ? 280 : 50,
+          right: '5%',
+        }}>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Profile');
