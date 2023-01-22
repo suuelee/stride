@@ -1,6 +1,6 @@
 ## Stride - nwHacks 2023
 
-![Demo](./Demo.gif)
+<img src="./Demo.gif" height="700"/>
 
 ## Inspiration
 ???
