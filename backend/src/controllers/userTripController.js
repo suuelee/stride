@@ -6,15 +6,6 @@ import {Timestamp} from "mongodb";
 const { Schema } = mongoose;
 
 var tripSchema =new Schema({
-    _id: {type: String},
-    email: {type: String},
-    password: {type: String},
-    fName: {type: String},
-    lName: {type: String},
-    isStrider: {type: String},
-    defaultAddress: {type: String},
-    noTripsCompleted: {type: String},
-    hobbies: {type: String},
     userId: {type: Number},
     striderId: {type: Number},
     pickupAddress: {type: String},
