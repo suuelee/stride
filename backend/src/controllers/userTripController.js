@@ -299,16 +299,5 @@ export default class UserTripController {
                 }
             })
         });
-
-        return new Promise((resolve, reject) => {
-            Profile.findOne(({ _id: req.body.id }), function (err, res) {
-                if (err) {
-                    reject(err);
-                } else {
-                    console.log("Successfully found!");
-                    resolve(res);
-                }
-            })
-        });
     }
 }

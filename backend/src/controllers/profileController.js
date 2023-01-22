@@ -24,7 +24,6 @@ const Profile = mongoose.model('Profile', profileSchema);
 export default class ProfileController {
     saveProfile(req) {
         return new Promise((resolve, reject) => {
-
             const new_profile = new Profile({
                 _id: req.body.id, // phone number
                 email: req.body.email,

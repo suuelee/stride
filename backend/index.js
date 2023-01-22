@@ -1,6 +1,7 @@
 import express from 'express'
 import profileRoute from './routes/profileRoute.js'
 import userTripRoute from './routes/userTripRoute.js'
+import liveLocationRoute from './routes/liveLocationRoute.js'
 import database from './src/config/database.js'
 
 
@@ -15,6 +16,8 @@ app.get('/', (req, res) => {
 app.use('/profile', profileRoute)
 
 app.use('/usertrip', userTripRoute)
+
+app.use('/location', liveLocationRoute)
 
 app.listen(port, () => {
     console.log(`Stride backend listening on port ${port}`)
