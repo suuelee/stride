@@ -18,11 +18,23 @@ function Profile() {
   return (
     <SafeAreaView>
 
+<View style={{
+      alignItems: 'center',
+      marginTop: 35,
+    }}>
+      <Text style={{color: 'white', fontWeight: 'bold', 
+          color: 'black',
+          fontSize: 30,
+          marginTop: 0}}>
+        Profile
+      </Text>
+    </View>
+
       <View style={{
               backgroundColor: '#E3E5DA',
               width: '95%',
               height: 200,
-              marginTop: 60,
+              marginTop: 40,
               borderRadius: 10,
               justifyContent: 'center',
               alignItems: 'center',
@@ -54,7 +66,7 @@ function Profile() {
                 paddingTop: 10,
                 paddingLeft: 15,
                  paddingRight: 10,
-                 marginTop: 50, 
+                 marginTop: 30, 
                 borderRadius: 10, 
                 backgroundColor: "#E3E5DA"}}>
 
@@ -81,7 +93,7 @@ function Profile() {
                 paddingTop: 10,
                  paddingLeft: 15,
                  paddingRight: 10,
-                 marginTop: 15, 
+                 marginTop: 30, 
                 marginBottom: 0, 
                 borderRadius: 10, 
                 backgroundColor: "#E3E5DA"}}>
@@ -106,7 +118,7 @@ function Profile() {
 
       <View style={{
         alignItems: 'center',
-        marginTop: 50, 
+        marginTop: 30, 
         backgroundColor: '#E3E5DA',
         borderRadius: 20,
         width: '95%'
