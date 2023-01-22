@@ -36,6 +36,26 @@ export default class LocationController {
         });
     }
 
+    updateLocation(req) {
+        return Location.findOne({
+            _id: req.body._id
+        }).then(res => {
+            return Location.findOneAndUpdate({
+                _id: req.body._id
+            }, {
+                _id: req.body._id,
+                userID: req.body.userID,
+                striderID: req.body.striderID,
+                timestamp: req.body.timestamp,
+                latitude: req.body.latitude,
+                longitude: req.body.longitude
+            })
+        }).then(res => {
+                console.log("Successfully found!");
+                return res;
+        })
+    }
+
     getLocation(req) {
         return new Promise((resolve, reject) => {
             Location.findOne(({ _id: req.body._id }), function (err, res) {
