@@ -48,7 +48,6 @@ import {
 // }
 
 function Login() {
-  const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
@@ -169,7 +168,6 @@ function Login() {
   
 
         </View>
-
 
         <View style={{
           marginTop: 150,
