@@ -129,7 +129,7 @@ export const sendLiveLocationApi = async action => {
 export const getLiveLocationApi = async action => {
   try {
     var data = JSON.stringify({
-      _id: action.payload.id,
+      _id: action.payload._id,
     });
     const request = await axios.get(`location/getLocation`, data);
     return request;

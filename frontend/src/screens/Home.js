@@ -10,7 +10,6 @@ import {
   GET_TRIP,
   SEND_LIVE_LOCATION,
 } from '../actions/tripActions';
-import {v4 as uuid} from 'uuid';
 
 function Home({navigation}) {
   const dispatch = useDispatch();
@@ -20,7 +19,7 @@ function Home({navigation}) {
   const [coord, setCoord] = useState([]);
 
   // CONFIGURE - CHANGE USER
-  const myUserId = 2;
+  const myUserId = 1;
 
   useEffect(() => {
     dispatch({type: GET_TRIP, payload: {userId: myUserId}});
@@ -32,21 +31,20 @@ function Home({navigation}) {
         const lat = info.coords.latitude;
         const long = info.coords.longitude;
         setCoord([lat, long]);
-        if (myUserId === 2) {
-          const id = uuid();
-          dispatch({
-            type: SEND_LIVE_LOCATION,
-            payload: {
-              _id: id,
-              userID: myUserId,
-              striderID: myUserId,
-              timestamp: new Date(),
-              latitude: lat,
-              longitude: long,
-            },
-          });
-          dispatch({type: GET_LIVE_LOCATION, payload: {_id: id}});
-        }
+        // if (myUserId === 2 && currentTrip !== null) {
+        //   dispatch({
+        //     type: SEND_LIVE_LOCATION,
+        //     payload: {
+        //       _id: currentTrip._id,
+        //       userID: myUserId,
+        //       striderID: myUserId,
+        //       timestamp: new Date(),
+        //       latitude: lat,
+        //       longitude: long,
+        //     },
+        //   });
+        //   dispatch({type: GET_LIVE_LOCATION, payload: {_id: currentTrip._id}});
+        // }
       },
       err => {
         console.log('Enable Location!');
@@ -75,7 +73,7 @@ function Home({navigation}) {
           altitude: 1000,
           zoom: 11,
         }}>
-        {currentTrip !== null && (
+        {currentTrip !== null && currentTrip.dropoffCoord && (
           <Marker
             key={'to'}
             coordinate={{
