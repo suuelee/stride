@@ -25,9 +25,9 @@ export default class ProfileController {
             const new_profile = new Profile({
                 _id: req.body.id, // phone number
                 email: req.body.email,
-                password:  req.body.password,
+                password: req.body.password,
                 fName: req.body.fName,
-                lName:  req.body.lName,
+                lName: req.body.lName,
                 isStrider: req.body.isStrider,
                 defaultAddress: req.body.address,
                 noTripsCompleted: 0,
@@ -44,5 +44,37 @@ export default class ProfileController {
                 }
             });
         });
+    }
+
+    getProfile(req) {
+        return new Promise((resolve, reject) => {
+            Profile.findOne(({ _id: req.body.id }), function (err, res) {
+                if (err) {
+                    reject(err);
+                } else {
+                    console.log("Successfully found!");
+                    resolve(res);
+                }
+            })
+        });
+    }
+
+    updateProfile(req) {
+        const doc = Profile.findOne(({ _id: req.body.id }), async function (err, res) {
+            if (err) {
+                console.log("Not found");
+            } else {
+                doc._id = req.body.id;
+                doc.email = req.body.email;
+                doc.password = req.body.password;
+                doc.fName = req.body.fName;
+                doc.lName = req.body.lName;
+                doc.isStrider = req.body.isStrider;
+                doc.defaultAddress = req.body.address;
+                doc.noTripsCompleted = 0;
+                doc.hobbies = req.body.hobbie;
+                await doc.save;
+            }
+        })
     }
 }
