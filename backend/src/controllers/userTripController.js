@@ -19,17 +19,17 @@ const UserTrip = mongoose.model('Trip', tripSchema);
 export default class UserTripController {
     loadLocation(req) {
         return new Promise((resolve, reject) => {
-
             console.log("Id is "+ req.body.userId);
             UserTrip.findOne(({ userId: req.body.userId }), function (err, res) {
-            if (err) {
-                reject(err);
-            } else {
-                console.log("Successfully found!" + res);
-                resolve(res);
-            }});
+                if (err) {
+                    reject(err);
+                } else {
+                    console.log("Successfully found!");
+                    resolve(res.pickupAddress);
+                }});
         });
     }
+
 
 
 
