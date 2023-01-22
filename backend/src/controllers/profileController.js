@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
 var profileSchema = new Schema({
-    _id: { type: String },
+    _id: { type: Number },
     email: { type: String },
     password: { type: String },
     fName: { type: String },
