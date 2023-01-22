@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 var tripSchema = new Schema({
-  _id: { type: String },
+  _id: { type:  Number },
   userId: { type: Number },
   striderId: { type: Number },
   pickupAddress: { type: String },
@@ -68,72 +68,22 @@ export default class UserTripController {
       });
     });
   }
-  loadWalkerInfo(req) {
-    return new Promise((resolve, reject) => {
-      const UserTripModel = new UserTrip();
-
-      const userTrip = {
-        userId: req.body.userId,
-      };
-
-      UserTripModel.getWalkerInfo(userTrip, (err, result) => {
-        if (err) {
-          reject({ error: err });
-        }
-        resolve(result);
-      });
-    });
-  }
-
-  loadWalkerOutfit(req) {
-    return new Promise((resolve, reject) => {
-      const UserTripModel = new UserTrip();
-
-      const userTrip = {
-        userId: req.body.userId,
-      };
-
-      UserTripModel.getWalkerOutfit(userTrip, (err, result) => {
-        if (err) {
-          reject({ error: err });
-        }
-        resolve(result);
-      });
-    });
-  }
-  saveWalkerOutfit(req) {
-    return new Promise((resolve, reject) => {
-      const UserTripModel = new UserTrip();
-
-      const walker = {
-        userId: req.body.userId,
-        shirt: req.body.shirt,
-        pants: req.body.pants,
-      };
-
-      UserTripModel.updateWalkerOutfit(walker, (err, result) => {
-        if (err) {
-          reject({ error: err });
-        }
-        resolve(result);
-      });
-    });
-  }
 
   endTrip(req) {
-    const UserTripModel = new UserTrip();
+      console.log(req.body.id);
+      return new Promise((resolve, reject) => {
+        UserTrip.findOneAndUpdate(({ _id: req.body.id }), {status: "completed"}, {new: true}, function (err, res) {
+          if (err) {
+            reject(err);
+          } else {
+            console.log("Successfully found!" + res);
+            resolve("Trip marked as " + res.status);
+          }
+        })
+      });
+    }
 
-    const trip = {
-      userId: req.body.userId,
-      tripId: req.body.tripId,
-    };
-    UserTripModel.finishTrip(trip, (err, result) => {
-      if (err) {
-        reject({ error: err });
-      }
-      resolve(result);
-    });
-  }
+
 
   saveStrideLocation(req) {
     return new Promise((resolve, reject) => {
