@@ -204,9 +204,6 @@ export default class UserTripController {
 
   acceptTrip(req) {
     return new Promise((resolve, reject) => {
-      // return UserTrip.findOne({
-      //   _id: req.body._id
-      // }).then(res => {
       return UserTrip.findOneAndUpdate({
         _id: req.body._id
       }, {
