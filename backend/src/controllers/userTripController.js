@@ -3,6 +3,7 @@ const { Schema } = mongoose;
 
 
 var tripSchema = new Schema({
+    _id: { type: String },
     userId: {type: Number},
     striderId: {type: Number},
     pickupAddress: {type: String},
@@ -32,11 +33,10 @@ export default class UserTripController {
 
 
 
-        saveLocation(req) {
+    saveLocation(req) {
         return new Promise((resolve, reject) => {
-            const UserTripModel = new UserTrip();
-
-            const userTrip = {
+            const new_trip = new UserTrip({
+                _id: req.body.id,
                 userId: req.body.userId,
                 striderId: req.body.striderId,
                 pickupAddress: req.body.pickupAddress,
@@ -45,9 +45,9 @@ export default class UserTripController {
                 createdTime: req.body.createdTime,
                 pickupTime: req.body.pickupTime,
                 dropoffTime: req.body.dropoffTime
-            };
+            });
 
-            UserTripModel.insertLocation(userTrip, (err, result) => {
+            new_trip.save((err, result) => {
                 if (err) {
                     reject({ error: err });
                 }
