@@ -5,7 +5,11 @@ import {useDispatch, useSelector} from 'react-redux';
 import TripDetailView from '../components/TripDetailView';
 import Whereto from '../components/Whereto';
 import Geolocation from '@react-native-community/geolocation';
-import {GET_TRIP, SEND_LIVE_LOCATION} from '../actions/tripActions';
+import {
+  GET_LIVE_LOCATION,
+  GET_TRIP,
+  SEND_LIVE_LOCATION,
+} from '../actions/tripActions';
 import {v4 as uuid} from 'uuid';
 
 function Home({navigation}) {
@@ -29,10 +33,11 @@ function Home({navigation}) {
         const long = info.coords.longitude;
         setCoord([lat, long]);
         if (myUserId === 2) {
+          const id = uuid();
           dispatch({
             type: SEND_LIVE_LOCATION,
             payload: {
-              _id: uuid(),
+              _id: id,
               userID: myUserId,
               striderID: myUserId,
               timestamp: new Date(),
@@ -40,6 +45,7 @@ function Home({navigation}) {
               longitude: long,
             },
           });
+          dispatch({type: GET_LIVE_LOCATION, payload: {_id: id}});
         }
       },
       err => {

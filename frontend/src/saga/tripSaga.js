@@ -38,25 +38,27 @@ function* postTrip(action) {
 
 function* getTrip(action) {
   const currentTrip = yield call(getTripApi, action);
-  const location = yield call(
-    getCoordinatesApi,
-    currentTrip.data.dropoffAddress,
-  );
-  yield put({
-    type: SET_CURRENT_TRIP,
-    payload:
-      currentTrip.data.status === 'completed'
-        ? null
-        : {...currentTrip.data, dropoffCoord: location},
-  });
-  if (
-    currentTrip.data.status === 'progress' ||
-    currentTrip.data.status === 'walking'
-  ) {
+  if (currentTrip.data !== null) {
+    const location = yield call(
+      getCoordinatesApi,
+      currentTrip.data.dropoffAddress,
+    );
     yield put({
-      type: GET_CURRENT_WALKER,
-      payload: currentTrip.data.striderId,
+      type: SET_CURRENT_TRIP,
+      payload:
+        currentTrip.data.status === 'completed'
+          ? null
+          : {...currentTrip.data, dropoffCoord: location},
     });
+    if (
+      currentTrip.data.status === 'progress' ||
+      currentTrip.data.status === 'walking'
+    ) {
+      yield put({
+        type: GET_CURRENT_WALKER,
+        payload: currentTrip.data.striderId,
+      });
+    }
   }
   yield delay(10000);
   yield put({type: GET_TRIP, payload: action.payload});
@@ -108,6 +110,7 @@ function* getCoordinates(action) {
 function* sendLiveLocation(action) {
   yield call(sendLiveLocationApi, action);
   yield delay(30000);
+  yield call(sendLiveLocation, action);
 }
 
 function* getLiveLocation(action) {
@@ -116,6 +119,7 @@ function* getLiveLocation(action) {
     type: SET_LIVE_LOCATION,
     payload: location.data,
   });
+  yield call(getLiveLocation, action);
 }
 
 export function* tripSaga() {
