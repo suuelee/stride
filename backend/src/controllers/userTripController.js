@@ -57,59 +57,7 @@ export default class UserTripController {
             });
         });
     }
-        loadWalkerInfo(req) {
-        return new Promise((resolve, reject) => {
-            const UserTripModel = new UserTrip();
 
-            const userTrip = {
-                userId: req.body.userId,
-            };
-
-            UserTripModel.getWalkerInfo(userTrip, (err, result) => {
-                if (err) {
-                    reject({ error: err });
-                }
-                resolve(result);
-            });
-        });
-    }
-
-    loadWalkerOutfit(req) {
-        return new Promise((resolve, reject) => {
-            const UserTripModel = new UserTrip();
-
-            const userTrip = {
-                userId: req.body.userId,
-            };
-
-            UserTripModel.getWalkerOutfit(userTrip, (err, result) => {
-                if (err) {
-                    reject({ error: err });
-                }
-                resolve(result);
-            });
-        });
-
-    }
-    saveWalkerOutfit(req) {
-        return new Promise((resolve, reject) => {
-            const UserTripModel = new UserTrip();
-
-            const walker = {
-                userId: req.body.userId,
-                shirt: req.body.shirt,
-                pants: req.body.pants
-            };
-
-            UserTripModel.updateWalkerOutfit(walker, (err, result) => {
-                if (err) {
-                    reject({ error: err });
-                }
-                resolve(result);
-            });
-        });
-
-    }
 
     endTrip(req) {
         const UserTripModel = new UserTrip();
