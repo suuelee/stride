@@ -4,3 +4,6 @@ export const POST_TRIP = 'POST_TRIP';
 export const GET_TRIP = 'GET_TRIP';
 
 export const SET_CURRENT_TRIP = 'SET_CURRENT_TRIP';
+
+export const GET_STRIDE_REQUEST = 'GET_STRIDE_REQUEST';
+export const SET_STRIDE_REQUEST = 'SET_STRIDE_REQUEST';
