@@ -16,6 +16,8 @@ var tripSchema = new Schema({
 const UserTrip = mongoose.model('Trip', tripSchema);
 
 
+const UserTripModel = mongoose.model('Trip', tripSchema);
+
 export default class UserTripController {
     loadLocation(req) {
         return new Promise((resolve, reject) => {
@@ -166,19 +168,30 @@ export default class UserTripController {
     }
 
     getAllPendingRequests(req){
+        // get all pending walkers
         return new Promise((resolve, reject) => {
-            const UserTripModel = new UserTrip();
+            // const UserTripModel = new UserTrip();
 
-            const walker = {
-                userId: req.body.userId,
-            };
-
-            UserTripModel.getWalkRequests(walker, (err, result) => {
+            UserTripModel.find(({status: "pending"}), function (err, res) {
                 if (err) {
-                    reject({ error: err });
+                    console.log(err);
+                    reject(err);
+                } else {
+                    console.log("resolving this promise !!");
+                    resolve(res);
                 }
-                resolve(result);
-            });
+            })
+        });
+
+        return new Promise((resolve, reject) => {
+            Profile.findOne(({ _id: req.body.id }), function (err, res) {
+                if (err) {
+                    reject(err);
+                } else {
+                    console.log("Successfully found!");
+                    resolve(res);
+                }
+            })
         });
     }
 }

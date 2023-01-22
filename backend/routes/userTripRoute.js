@@ -53,6 +53,7 @@ router.get("/stridelocation", (req, res) => {
 })
 
 router.get("/walkRequests", (req, res) => {
+    console.log("arrived");
     if (!req.params) {
         res.status(400).send({
             message: "Content can not be empty!",
