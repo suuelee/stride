@@ -1,35 +1,34 @@
-
-import UserTrip from "../models/userTrip.js"
-
 import mongoose from 'mongoose';
-import {Timestamp} from "mongodb";
 const { Schema } = mongoose;
 
-var tripSchema =new Schema({
+
+var tripSchema = new Schema({
     userId: {type: Number},
     striderId: {type: Number},
     pickupAddress: {type: String},
     dropoffAddress: {type: String},
     status: {type: String},
-    createdTime:{type: Timestamp},
-    pickupTime: {type: Timestamp},
-    dropoffTime: {type: Timestamp}
+    createdTime:{type: Date},
+    pickupTime: {type: Date},
+    dropoffTime: {type: Date}
 });
+const UserTrip = mongoose.model('Trip', tripSchema);
+
 
 export default class UserTripController {
     loadLocation(req) {
-        const UserTripModel = new UserTrip();
+        return new Promise((resolve, reject) => {
 
-        const userTrip = {
-                userId: req.body.userId,
-            };
-            UserTripModel.getLocation(userTrip, (err, result) => {
-                if (err) {
-                    reject({ error: err });
-                }
-                resolve(result);
-            });
-        }
+            console.log("Id is "+ req.body.userId);
+            UserTrip.findOne(({ userId: req.body.userId }), function (err, res) {
+            if (err) {
+                reject(err);
+            } else {
+                console.log("Successfully found!" + res);
+                resolve(res);
+            }});
+        });
+    }
 
 
 

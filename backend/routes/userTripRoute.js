@@ -21,7 +21,7 @@ router.post("/location", (req, res) => {
 })
 
 router.get("/location", (req, res) => {
-    if (!req.params) {
+    if (!req) {
         res.status(400).send({
             message: "Content can not be empty!",
         });
