@@ -21,11 +21,12 @@ function Profile() {
 <View style={{
       alignItems: 'center',
       marginTop: 35,
+      marginLeft: 10,
     }}>
       <Text style={{color: 'white', fontWeight: 'bold', 
           color: 'black',
           fontSize: 30,
-          marginTop: 0}}>
+          marginLeft: 10}}>
         Profile
       </Text>
     </View>
@@ -35,6 +36,7 @@ function Profile() {
               width: '95%',
               height: 200,
               marginTop: 40,
+              marginLeft: 10,
               borderRadius: 10,
               justifyContent: 'center',
               alignItems: 'center',
@@ -65,6 +67,7 @@ function Profile() {
                 height: 60,
                 paddingTop: 10,
                 paddingLeft: 15,
+                marginLeft: 10,
                  paddingRight: 10,
                  marginTop: 30, 
                 borderRadius: 10, 
@@ -94,6 +97,7 @@ function Profile() {
                  paddingLeft: 15,
                  paddingRight: 10,
                  marginTop: 30, 
+                 marginLeft: 10,
                 marginBottom: 0, 
                 borderRadius: 10, 
                 backgroundColor: "#E3E5DA"}}>
@@ -121,7 +125,8 @@ function Profile() {
         marginTop: 30, 
         backgroundColor: '#E3E5DA',
         borderRadius: 20,
-        width: '95%'
+        width: '95%',
+        marginLeft: 10,
       }}>
 
 <View style={{width: '90%', height: 200, flexDirection: 'row'}}>

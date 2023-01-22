@@ -25,14 +25,15 @@ function Login() {
       marginTop: 70,
     }}>
       <Image source={require('../assets/logo.png')}
-      style={{height: 70, resizeMode: 'contain', marginTop: 70}}
+      style={{height: 70, resizeMode: 'contain', marginTop: 70, marginLeft: 20}}
       >
         
       </Image>
       <Text style={{color: 'white', fontWeight: 'bold', 
           color: 'black',
           fontSize: 30,
-          marginTop: 20}}>
+          marginTop: 20,
+          marginLeft: 20}}>
         Sign In to Continue
       </Text>
     </View>
@@ -55,6 +56,7 @@ function Login() {
               style={{
                 width: '95%',
                 height: 60,
+                marginLeft: 20,
                 paddingLeft: 10,
                  paddingRight: 10, 
                 marginBottom: 50, 
@@ -82,6 +84,7 @@ function Login() {
               placeholderTextColor={'#46534D'}
               style={{
                 width: '95%',
+                marginLeft: 20,
                 height: 60,
                 paddingLeft: 10,
                  paddingRight: 10, 
@@ -109,6 +112,7 @@ function Login() {
           width: '50%',
           height: 40,
           marginTop: 15,
+          marginLeft: 20,
           borderRadius: 40,
           justifyContent: 'center',
           alignItems: 'center',
@@ -122,7 +126,8 @@ function Login() {
 
       <View style={{
         flexDirection: 'row',
-        marginTop: 10
+        marginTop: 10,
+        marginLeft: 20,
       }}>
       <Text style={{
         fontSize: 10,
