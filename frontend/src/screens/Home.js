@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
 import MapView from 'react-native-maps';
+import {useDispatch, useSelector} from 'react-redux';
 import TripDetailView from '../components/TripDetailView';
 import Whereto from '../components/Whereto';
 
 function Home({navigation}) {
+  const dispatch = useDispatch();
+  const currentTrip = useSelector(
+    state => state.tripReducer.currentTripReducer,
+  );
+
+  useEffect(() => {
+    dispatch({type: 'GET_TRIP', payload: {userId: 1}});
+  }, [dispatch]);
+
   return (
     <View>
       <MapView
@@ -17,8 +27,8 @@ function Home({navigation}) {
           longitudeDelta: 0.0421,
         }}
       />
-      {Whereto()}
-      {TripDetailView()}
+      {currentTrip === null && <Whereto/>}
+      {currentTrip !== null && <TripDetailView/>}
       <View style={{position: 'absolute', top: 280, right: '5%'}}>
         <TouchableOpacity
           onPress={() => {

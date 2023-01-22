@@ -36,6 +36,22 @@ router.get("/location", (req, res) => {
         });
 })
 
+router.get("/latest/:userId", (req, res) => {
+    if (!req.params) {
+        res.status(400).send({
+            message: "Content can not be empty!",
+        });
+        return;
+    }
+    userTripController.loadLatestTrip(req.params.userId)
+        .then((response) => {
+            res.status(200).json(response);
+        })
+        .catch((err) => {
+            res.status(404).json(err);
+        });
+})
+
 router.get("/stridelocation", (req, res) => {
     if (!req.params) {
         res.status(400).send({

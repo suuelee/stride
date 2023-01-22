@@ -8,8 +8,11 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {useDispatch} from 'react-redux';
+import {POST_TRIP} from '../actions/tripActions';
 
 function Whereto() {
+  const dispatch = useDispatch();
   const [pickup, setPickup] = useState('');
   const [destination, setDestination] = useState('');
 
@@ -92,7 +95,13 @@ function Whereto() {
           alignItems: 'center',
         }}
         onPress={() => {
-          console.log(`Creating request from ${pickup} to ${destination}`);
+          dispatch({
+            type: POST_TRIP,
+            payload: {
+              pickup: pickup,
+              destination: destination,
+            },
+          });
         }}>
         <Text style={{color: 'white', fontWeight: 'bold'}}>Confirm Stride</Text>
       </TouchableOpacity>
